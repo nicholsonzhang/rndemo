@@ -11,11 +11,12 @@ import {
     Text,
     View
 } from 'react-native';
-import {TabNavigator,TabBarBottom} from 'react-navigation';
+import {TabNavigator,TabBarBottom,DrawerNavigator} from 'react-navigation';
 
 import HomePage from './js/pages/HomePage';
 import PracticePage from './js/pages/PracticePage';
 import MinePage from './js/pages/MinePage';
+import OhterPage from './js/pages/OtherPage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
@@ -26,12 +27,12 @@ const instructions = Platform.select({
 
 type Props = {};
 
-const Root = TabNavigator({
+const TabNav = TabNavigator({
         Home: {
             screen: HomePage,
             navigationOptions:{
                 tabBarLabel:'首页',
-                tabBarIcon:({tintColor,focused})=>(
+                tabBarIcon:({focused,tintColor})=>(
                     <Ionicons
                         name={focused?'ios-home':'ios-home-outline'}
                         size={26}
@@ -44,9 +45,9 @@ const Root = TabNavigator({
             screen: PracticePage,
             navigationOptions:{
                 tabBarLabel:'训练',
-                tabBarIcon:({tintColor,focused})=>(
+                tabBarIcon:({focused,tintColor})=>(
                     <Ionicons
-                        name={focused?'ios-home':'ios-home-outline'}
+                        name={focused?'ios-book':'ios-book-outline'}
                         size={26}
                         style={{color:tintColor}}
                     />
@@ -57,7 +58,7 @@ const Root = TabNavigator({
             screen: MinePage,
             navigationOptions:{
                 tabBarLabel:'我的',
-                tabBarIcon:({tintColor,focused})=>(
+                tabBarIcon:({focused,tintColor})=>(
                     <Ionicons
                         name={focused?'ios-people':'ios-people-outline'}
                         size={26}
@@ -72,33 +73,38 @@ const Root = TabNavigator({
 
 
         tabBarPosition:'bottom',
-        tabBarOption:{
+        tabBarOptions:{
+            activeTintColor:'#E67F11',
+            inactiveTintColor: '#666',
 
         }
     });
+const DrawerNav =DrawerNavigator({
+    Main:{
+        screen:TabNav,
+        navigationOptions:{
+            drawerLabel:"主页"
+        }
+    },
+    Other:{
+        screen:OhterPage,
+        navigationOptions:{
+            drawerLabel:'其他'
+        }
+    }
+},{
+
+    drawerWidth:300,
+    contentOptions:{
+
+
+    }
+});
 export default class App extends Component<Props> {
     render() {
         return (
-            <Root/>
+            <DrawerNav/>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-});
