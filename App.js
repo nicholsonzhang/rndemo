@@ -11,12 +11,13 @@ import {
     Text,
     View
 } from 'react-native';
-import {TabNavigator,TabBarBottom,DrawerNavigator} from 'react-navigation';
+import {TabNavigator,TabBarBottom,DrawerNavigator,StackNavigator} from 'react-navigation';
 
 import HomePage from './js/pages/HomePage';
 import PracticePage from './js/pages/PracticePage';
 import MinePage from './js/pages/MinePage';
 import OhterPage from './js/pages/OtherPage';
+import TwoPage from './js/pages/TwoPage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' +
@@ -79,9 +80,22 @@ const TabNav = TabNavigator({
 
         }
     });
+const StackNav =StackNavigator({
+    Home:{
+        screen:TabNav
+    },
+    TwoPage:{
+        screen:TwoPage
+    }
+
+},{
+
+    headerMode:'none'
+});
+
 const DrawerNav =DrawerNavigator({
     Main:{
-        screen:TabNav,
+        screen:StackNav,
         navigationOptions:{
             drawerLabel:"主页"
         }
@@ -94,7 +108,7 @@ const DrawerNav =DrawerNavigator({
     }
 },{
 
-    drawerWidth:300,
+    drawerWidth:200,
     contentOptions:{
 
 

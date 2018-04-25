@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {View,Text} from 'react-native';
 
 
-export default class HomePage extends Component{
+export default class TwoPage extends Component{
 
 
 
@@ -10,9 +10,8 @@ export default class HomePage extends Component{
         const {navigation} = this.props;
         return(
             <View>
-                <Text>这个是训练页</Text>
-
-                <Text onPress={()=>navigation.navigate('TwoPage')}>go to Two page</Text>
+                <Text>这个是Two</Text>
+                <Text onPress={()=>navigation.goBack()}>返回</Text>
             </View>
         );
     }
